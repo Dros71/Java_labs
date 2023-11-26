@@ -23,7 +23,6 @@ public class GornerTableCellRenderer implements TableCellRenderer {
         formatter.setDecimalFormatSymbols(dottedDouble);
         panel.add(label);
         panel.setLayout(new FlowLayout(FlowLayout.LEFT));
-
     }
 
     public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int col) {
@@ -36,7 +35,6 @@ public class GornerTableCellRenderer implements TableCellRenderer {
             double right = Double.parseDouble(needle_right);
             left_right = number >= left && number <=right;
         }
-
         if ((col==1 || col == 2) && ((needle!=null && needle.equals(formattedDouble)) ||
                 ((needle_left != null) && (needle_right != null) && left_right))) {
             panel.setBackground(Color.RED);

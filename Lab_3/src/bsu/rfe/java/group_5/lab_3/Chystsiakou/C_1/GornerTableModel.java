@@ -1,10 +1,10 @@
 package bsu.rfe.java.group_5.lab_3.Chystsiakou.C_1;
 
 import javax.swing.table.AbstractTableModel;
-import java.sql.SQLOutput;
 
 public class GornerTableModel extends AbstractTableModel {
     private Double[] coefficients;
+    private Double[][] Matrix;
     private Double from;
     private Double to;
     private Double step;
@@ -13,6 +13,7 @@ public class GornerTableModel extends AbstractTableModel {
         this.to = to;
         this.step = step;
         this.coefficients = coefficients;
+        Matrix = new Double[this.getRowCount()][this.getColumnCount()];
     }
     public Double getFrom() {
         return from;
@@ -29,11 +30,17 @@ public class GornerTableModel extends AbstractTableModel {
     public int getRowCount() {
         return new Double(Math.ceil((to-from)/step)).intValue()+1;
     }
+    public Double[][] getTable(){
+        return Matrix;
+    }
     public Object getValueAt(int row, int col) {
         double x = from + step * row;
         switch (col){
-            case 0:
+            case 0:{
+                Matrix[row][col] = x;
                 return x;
+            }
+
             case 1: {
                 Double result = 0.0;
                 int it = 0;
@@ -43,6 +50,7 @@ public class GornerTableModel extends AbstractTableModel {
                     coefficient_now = coefficients[++it];
                 }
                 result += coefficient_now;
+                Matrix[row][col] = result;
                 return result;
             }
             case 2:{
@@ -54,10 +62,12 @@ public class GornerTableModel extends AbstractTableModel {
                     coefficient_now = coefficients[--it];
                 }
                 result += coefficient_now;
+                Matrix[row][col] = result;
                 return result;
             }
             case 3:{
                 Double result = Math.abs((Double)getValueAt(row,1) - (Double)getValueAt(row,2));
+                Matrix[row][col] = result;
                 return  result;
             }
             default:{

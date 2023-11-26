@@ -13,6 +13,7 @@ public class MainFrame extends JFrame{
     private JFileChooser fileChooser = null;
     private JMenuItem saveToTextMenuItem;
     private JMenuItem saveToGraphicsMenuItem;
+    private JMenuItem saveCSVMenuItem;
     private JMenuItem searchValueMenuItem;
     private JMenuItem searchValueZoneMenuItem;
     private JMenuItem AboutProgram;
@@ -60,6 +61,20 @@ public class MainFrame extends JFrame{
     };
     saveToGraphicsMenuItem = fileMenu.add(saveToGraphicsAction);
     saveToGraphicsMenuItem.setEnabled(false);
+
+    Action saveToCSVFile = new AbstractAction("Сохранить в CSV файл") {
+        public void actionPerformed(ActionEvent event) {
+            if (fileChooser==null) {
+                fileChooser = new JFileChooser();
+                fileChooser.setCurrentDirectory(new File("D:\\"));
+            }
+            if (fileChooser.showSaveDialog(MainFrame.this) == JFileChooser.APPROVE_OPTION)
+                saveToCSV(fileChooser.getSelectedFile());
+        }
+    };
+    saveCSVMenuItem = fileMenu.add(saveToCSVFile);
+    saveCSVMenuItem.setEnabled(false);
+
     Action searchValueAction = new AbstractAction("Найти значение многочлена") {
     public void actionPerformed(ActionEvent event) {
         String value = JOptionPane.showInputDialog(MainFrame.this, "Введите значение для поиска", "Поиск значения", JOptionPane.QUESTION_MESSAGE);
@@ -136,6 +151,7 @@ public class MainFrame extends JFrame{
             getContentPane().validate();
             saveToTextMenuItem.setEnabled(true);
             saveToGraphicsMenuItem.setEnabled(true);
+            saveCSVMenuItem.setEnabled(true);
             searchValueMenuItem.setEnabled(true);
             searchValueZoneMenuItem.setEnabled(true);
         }
@@ -153,6 +169,7 @@ public class MainFrame extends JFrame{
             hBoxResult.add(new JPanel());
             saveToTextMenuItem.setEnabled(false);
             saveToGraphicsMenuItem.setEnabled(false);
+            saveCSVMenuItem.setEnabled(false);
             searchValueMenuItem.setEnabled(false);
             searchValueZoneMenuItem.setEnabled(false);
             getContentPane().validate();
@@ -200,5 +217,16 @@ protected void saveToTextFile(File selectedFile) {
     out.close();
     }
     catch (FileNotFoundException e) {}
+    }
+    public void saveToCSV(File file) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
+            int rows = data.getRowCount();
+            Double[][] table = data.getTable();
+            for (int i = 0; i < rows; i++) {
+                writer.write(table[i][0] + ", " + table[i][1] + ", " + table[i][2] + ", " + table[i][3] + System.lineSeparator());
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
