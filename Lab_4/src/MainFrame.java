@@ -11,6 +11,8 @@ public class MainFrame extends JFrame {
     private JFileChooser fileChooser = null;
     private JCheckBoxMenuItem showAxisMenuItem;
     private JCheckBoxMenuItem showMarkersMenuItem;
+    private JCheckBoxMenuItem showGridMenuItem;
+    private JCheckBoxMenuItem showRotationMenuItem;
     private GraphicsDisplay display = new GraphicsDisplay();
     private boolean fileLoaded = false;
 
@@ -48,6 +50,13 @@ public class MainFrame extends JFrame {
     showAxisMenuItem = new JCheckBoxMenuItem(showAxisAction);
     graphicsMenu.add(showAxisMenuItem);
     showAxisMenuItem.setSelected(true);
+    Action showGrid = new AbstractAction("Показывать координатную сетку") {
+        public void actionPerformed(ActionEvent event) {
+            display.setShowGrid(showGridMenuItem.isSelected()); }
+    };
+    showGridMenuItem = new JCheckBoxMenuItem(showGrid);
+    graphicsMenu.add(showGridMenuItem);
+    showGridMenuItem.setSelected(true);
 
     Action showMarkersAction = new AbstractAction("Показывать маркеры точек") {
         public void actionPerformed(ActionEvent event) {
@@ -56,6 +65,13 @@ public class MainFrame extends JFrame {
     showMarkersMenuItem = new JCheckBoxMenuItem(showMarkersAction); graphicsMenu.add(showMarkersMenuItem);
     showMarkersMenuItem.setSelected(true);
     graphicsMenu.addMenuListener(new GraphicsMenuListener());
+    Action showRotationAction = new AbstractAction("Повернуть график на 90 градусов") {
+        public void actionPerformed(ActionEvent event) {
+            display.setRotation(showRotationMenuItem.isSelected()); }
+    };
+    showRotationMenuItem = new JCheckBoxMenuItem(showRotationAction);
+    graphicsMenu.add(showRotationMenuItem);
+    showRotationMenuItem.setSelected(false);
     getContentPane().add(display, BorderLayout.CENTER);
 }
     protected void openGraphics(File selectedFile) {
@@ -88,7 +104,9 @@ public class MainFrame extends JFrame {
         public void menuSelected(MenuEvent e) {
             showAxisMenuItem.setEnabled(fileLoaded);
             showMarkersMenuItem.setEnabled(fileLoaded);
+            showGridMenuItem.setEnabled(fileLoaded);
         }
+
         public void menuDeselected(MenuEvent e) {
         }
         public void menuCanceled(MenuEvent e) { }
