@@ -24,6 +24,19 @@ public class GornerTableCellRenderer implements TableCellRenderer {
         panel.add(label);
         panel.setLayout(new FlowLayout(FlowLayout.LEFT));
     }
+    public void repaint(Object value, int row, int col){
+        String formattedDouble = formatter.format(value);
+        label.setText(formattedDouble);
+        if ((row + col) % 2 == 0){
+            panel.setBackground(Color.BLACK);
+            label.setForeground(Color.WHITE);
+            label.setText(formattedDouble);
+        }else {
+            panel.setBackground(Color.WHITE);
+            label.setForeground(Color.BLACK);
+            label.setText(formattedDouble);
+        }
+    }
 
     public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int col) {
         String formattedDouble = formatter.format(value);
@@ -35,39 +48,19 @@ public class GornerTableCellRenderer implements TableCellRenderer {
             double right = Double.parseDouble(needle_right);
             left_right = number >= left && number <=right;
         }
-        if ((col==1 || col == 2) && ((needle!=null && needle.equals(formattedDouble)) ||
-                ((needle_left != null) && (needle_right != null) && left_right))) {
+        boolean needle_flag = (col==1 || col == 2) && (needle != null && needle.equals(formattedDouble));
+        boolean needle_range_flag = (col==1 || col == 2) && (needle_left != null) && (needle_right != null) && left_right;
+        repaint(value,row,col);
+        if (needle_flag || needle_range_flag){
             panel.setBackground(Color.RED);
             label.setForeground(Color.BLACK);
             label.setText(formattedDouble);
         } else {
-            if ((row + col) % 2 == 0){
-                panel.setBackground(Color.BLACK);
-                label.setForeground(Color.WHITE);
-                label.setText(formattedDouble);
-            }else {
-                panel.setBackground(Color.WHITE);
-                label.setForeground(Color.BLACK);
-                label.setText(formattedDouble);
-            }
+            repaint(value,row,col);
         }
         return panel;
     }
-    public Component getTableCellRendererZone(JTable table, Object left,Object right, boolean isSelected, boolean hasFocus, int row, int col) {
-        String formattedDouble_1 = formatter.format(left);
-        String formattedDouble_2 = formatter.format(right);
-        label.setText(formattedDouble_1 + " to " + formattedDouble_2);
-        if (col==1 && needle!=null && needle_left.equals(formattedDouble_1)) {
-            do {
-                row++;
-                panel.setBackground(Color.RED);
-            }
-            while(!needle_left.equals(formattedDouble_2));
-        } else {
-            panel.setBackground(Color.WHITE);
-        }
-        return panel;
-    }
+
     public void setNeedle(String needle) {
         this.needle = needle;
     }

@@ -78,6 +78,7 @@ public class MainFrame extends JFrame{
     Action searchValueAction = new AbstractAction("Найти значение многочлена") {
     public void actionPerformed(ActionEvent event) {
         String value = JOptionPane.showInputDialog(MainFrame.this, "Введите значение для поиска", "Поиск значения", JOptionPane.QUESTION_MESSAGE);
+        //renderer.setNeedleZone("0","0");
         renderer.setNeedle(value);
         getContentPane().repaint(); }
     };
@@ -100,6 +101,8 @@ public class MainFrame extends JFrame{
                 String[] valueZone = value.split(" ");
                 String value_left = valueZone[0];
                 String value_right = valueZone[1];
+                getContentPane().repaint();
+                //renderer.setNeedle("0");
                 renderer.setNeedleZone(value_left,value_right);
                 getContentPane().repaint(); }
         };
