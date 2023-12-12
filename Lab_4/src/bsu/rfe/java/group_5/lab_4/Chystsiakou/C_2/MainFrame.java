@@ -1,3 +1,5 @@
+package bsu.rfe.java.group_5.lab_4.Chystsiakou.C_2;
+
 import javax.swing.*;
 import javax.swing.event.MenuEvent;
 import javax.swing.event.MenuListener;
