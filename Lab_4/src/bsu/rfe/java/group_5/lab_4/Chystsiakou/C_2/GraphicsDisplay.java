@@ -117,12 +117,14 @@ public class GraphicsDisplay extends JPanel {
         }
 
         paintGraphics(canvas);
-        if (showAxis)
+        if (showAxis){
             paintAxis(canvas);
+            paintLabels(canvas);
+        }
 
         if (showGrid) {
             paintGrid(canvas);
-            paintLabels(canvas);
+
         }
         if (showMarkers)
             paintMarkers(canvas);
