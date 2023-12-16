@@ -102,7 +102,6 @@ public class MainFrame extends JFrame{
                 String value_left = valueZone[0];
                 String value_right = valueZone[1];
                 getContentPane().repaint();
-                //renderer.setNeedle("0");
                 renderer.setNeedleZone(value_left,value_right);
                 getContentPane().repaint(); }
         };
