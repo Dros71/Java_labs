@@ -90,8 +90,8 @@ public class MainFrame extends JFrame {
 
     public MainFrame() {
         super("Лабораторная работа № 2");
-        image1 = new ImageIcon(readImage("D:/РАФ/Семестр_number_3/Java/Labs/Lab_2/src/bsu/rfe/java/group_5/lab_2/Chystsiakou/C_1/formula_1.bmp").getScaledInstance(550, 60, BufferedImage.TYPE_INT_ARGB));
-        image2 = new ImageIcon(readImage("D:/РАФ/Семестр_number_3/Java/Labs/Lab_2/src/bsu/rfe/java/group_5/lab_2/Chystsiakou/C_1/formula_2.bmp").getScaledInstance(550, 60, BufferedImage.TYPE_INT_ARGB));
+        image1 = new ImageIcon(readImage("D:/РАФ/Semester_3/Java/Labs/Lab_2/src/bsu/rfe/java/group_5/lab_2/Chystsiakou/C_1/formula_1.bmp").getScaledInstance(550, 60, BufferedImage.TYPE_INT_ARGB));
+        image2 = new ImageIcon(readImage("D:/РАФ/Semester_3/Java/Labs/Lab_2/src/bsu/rfe/java/group_5/lab_2/Chystsiakou/C_1/formula_2.bmp").getScaledInstance(550, 60, BufferedImage.TYPE_INT_ARGB));
         images = Map.of(1, image1, 2, image2);
 
         setSize(width, height);
